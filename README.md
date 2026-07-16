@@ -184,7 +184,7 @@ npm run seed
 ```
 
 This creates:
-- **Admin Account**: `admin@pizzadelivery.com` / `admin123456`
+- **Admin Account**: `[EMAIL_ADDRESS]` / `[PASSWORD]`
 - **19 inventory items**: 5 bases, 5 sauces, 3 cheeses, 6 vegetables (100 units each)
 
 > ⚠️ **Change the admin password** after first login in production!
