@@ -139,7 +139,7 @@ pizzaDelivery/
 3. Edit `.env` with your actual values:
    ```env
    PORT=5000
-   MONGO_URI=mongodb+srv://pizzaAdmin:yourpassword@cluster0.xxxxx.mongodb.net/pizzaDelivery?retryWrites=true&w=majority
+   MONGO_URI=`[MONGODB_URI]`
    JWT_SECRET=your-super-secret-random-string
    JWT_EXPIRES_IN=7d
 
@@ -150,7 +150,7 @@ pizzaDelivery/
    EMAIL_PORT=587
    EMAIL_USER=
    EMAIL_PASS=
-   ADMIN_EMAIL=admin@pizzadelivery.com
+   ADMIN_EMAIL=[EMAIL_ADDRESS]`
 
    FRONTEND_URL=http://localhost:5173
    INVENTORY_THRESHOLD=20
