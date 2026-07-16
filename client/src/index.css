@@ -264,7 +264,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== Forms ===== */
 .form-group {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .form-label {
@@ -277,9 +277,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-input {
   width: 100%;
-  padding: 14px 18px;
+  padding: 10px 14px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-primary);
   background: var(--bg-glass);
   border: 1px solid var(--border-color);
@@ -308,13 +308,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== Auth Pages Layout ===== */
 .auth-page {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-lg);
-  background: var(--gradient-hero);
-  position: relative;
+  padding: var(--space-md);
+  background: rgba(15, 15, 26, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  cursor: pointer;
+  overflow: hidden;
 }
 .auth-page::before {
   content: '';
@@ -330,27 +336,30 @@ h1, h2, h3, h4, h5, h6 {
 
 .auth-card {
   width: 100%;
-  max-width: 440px;
-  padding: var(--space-2xl);
+  max-width: 420px;
+  padding: var(--space-lg) var(--space-xl);
   position: relative;
   z-index: 1;
+  cursor: default;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .auth-header {
   text-align: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .auth-logo {
-  font-size: 2.5rem;
-  margin-bottom: var(--space-sm);
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
 }
 
 .auth-title {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
 }
 
 .auth-subtitle {

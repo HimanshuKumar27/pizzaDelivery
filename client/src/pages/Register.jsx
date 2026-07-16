@@ -53,8 +53,12 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="glass-card auth-card animate-scale-in">
+    <div className="auth-page" onClick={() => navigate('/')}>
+      <div
+        className="glass-card auth-card animate-scale-in"
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: 680 }}
+      >
         <div className="auth-header">
           <div className="auth-logo">🍕</div>
           <h1 className="auth-title">Create Account</h1>
@@ -62,86 +66,94 @@ const Register = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label" htmlFor="register-name">Full Name</label>
-            <input
-              id="register-name"
-              className="form-input"
-              type="text"
-              name="name"
-              placeholder="John Doe"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 var(--space-lg)' }}>
+            {/* Left Column */}
+            <div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-name">Full Name</label>
+                <input
+                  id="register-name"
+                  className="form-input"
+                  type="text"
+                  name="name"
+                  placeholder="Enter your full name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="register-email">Email</label>
-            <input
-              id="register-email"
-              className="form-input"
-              type="email"
-              name="email"
-              placeholder="john@example.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-email">Email</label>
+                <input
+                  id="register-email"
+                  className="form-input"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="register-phone">Phone (optional)</label>
-            <input
-              id="register-phone"
-              className="form-input"
-              type="tel"
-              name="phone"
-              placeholder="+91 98765 43210"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-phone">Phone (optional)</label>
+                <input
+                  id="register-phone"
+                  className="form-input"
+                  type="tel"
+                  name="phone"
+                  placeholder="Enter your phone number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="register-address">Delivery Address (optional)</label>
-            <input
-              id="register-address"
-              className="form-input"
-              type="text"
-              name="address"
-              placeholder="123 Main St, City"
-              value={formData.address}
-              onChange={handleChange}
-            />
-          </div>
+            {/* Right Column */}
+            <div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-address">Delivery Address (optional)</label>
+                <input
+                  id="register-address"
+                  className="form-input"
+                  type="text"
+                  name="address"
+                  placeholder="Enter your delivery address"
+                  value={formData.address}
+                  onChange={handleChange}
+                />
+              </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="register-password">Password</label>
-            <input
-              id="register-password"
-              className="form-input"
-              type="password"
-              name="password"
-              placeholder="Min. 6 characters"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-password">Password</label>
+                <input
+                  id="register-password"
+                  className="form-input"
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-          <div className="form-group">
-            <label className="form-label" htmlFor="register-confirm">Confirm Password</label>
-            <input
-              id="register-confirm"
-              className="form-input"
-              type="password"
-              name="confirmPassword"
-              placeholder="Re-enter password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
+              <div className="form-group">
+                <label className="form-label" htmlFor="register-confirm">Confirm Password</label>
+                <input
+                  id="register-confirm"
+                  className="form-input"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <button

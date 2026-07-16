@@ -26,8 +26,8 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="glass-card auth-card animate-scale-in">
+    <div className="auth-page" onClick={() => navigate('/')}>
+      <div className="glass-card auth-card animate-scale-in" onClick={(e) => e.stopPropagation()}>
         <div className="auth-header">
           <div className="auth-logo">🍕</div>
           <h1 className="auth-title">Welcome Back</h1>
@@ -41,7 +41,7 @@ const Login = () => {
               id="login-email"
               className="form-input"
               type="email"
-              placeholder="john@example.com"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
