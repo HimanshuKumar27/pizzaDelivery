@@ -4,12 +4,28 @@ import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import toast from 'react-hot-toast';
 import { ChevronLeft, ChevronRight, Check, ShoppingCart } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const EMOJIS = {
   base: { 'Thin Crust': '🫓', 'Thick Crust': '🍞', 'Cheese Burst': '🧀', 'Whole Wheat': '🌾', 'Gluten Free': '🥦' },
   sauce: { 'Classic Marinara': '🍅', 'Pesto Basil': '🌿', 'BBQ Sauce': '🔥', 'White Garlic': '🧄', 'Spicy Sriracha': '🌶️' },
   cheese: { 'Mozzarella': '🧀', 'Cheddar': '🟡', 'Parmesan': '🇮🇹' },
   vegetable: { 'Bell Peppers': '🫑', 'Mushrooms': '🍄', 'Red Onions': '🧅', 'Black Olives': '🫒', 'Fresh Tomatoes': '🍅', 'Jalapeños': '🌶️' },
+};
+
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction === 'right' ? 50 : -50,
+    opacity: 0
+  }),
+  center: {
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction) => ({
+    x: direction === 'right' ? -50 : 50,
+    opacity: 0
+  })
 };
 
 const STEPS = [
@@ -145,10 +161,16 @@ const PizzaBuilder = () => {
           </div>
 
           {/* Step Content */}
-          <div
-            key={step}
-            className={direction === 'right' ? 'animate-slide-right' : 'animate-slide-left'}
-          >
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={step}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3 }}
+            >
             <div className="builder-step-title">
               <h2>{currentStep.title}</h2>
               <p>{currentStep.subtitle}</p>
@@ -187,7 +209,8 @@ const PizzaBuilder = () => {
                 Selected: {state.vegetables.map((v) => v.name).join(', ')}
               </p>
             )}
-          </div>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Navigation */}
           <div className="builder-nav">

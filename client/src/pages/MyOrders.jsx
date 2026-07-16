@@ -4,6 +4,12 @@ import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ChefHat } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -49,24 +55,38 @@ const MyOrders = () => {
       <Navbar />
       <div className="dashboard-page">
         <div className="container">
-          <div className="dashboard-header animate-fade-in">
+          <motion.div 
+            className="dashboard-header"
+            initial="hidden"
+            animate="visible"
+            variants={fadeVariant}
+          >
             <h1 className="dashboard-title">My Orders</h1>
             <p className="text-muted" style={{ marginTop: 'var(--space-xs)' }}>
               {orders.length} order{orders.length !== 1 ? 's' : ''} total
             </p>
-          </div>
+          </motion.div>
 
           {orders.length === 0 ? (
-            <div className="empty-state animate-fade-in">
+            <motion.div 
+              className="empty-state"
+              initial="hidden"
+              animate="visible"
+              variants={fadeVariant}
+            >
               <span className="empty-emoji">📭</span>
               <h3>No orders yet</h3>
               <p>Your order history will appear here</p>
               <Link to="/build" className="btn btn-primary">
                 <ChefHat size={18} /> Build Pizza
               </Link>
-            </div>
+            </motion.div>
           ) : (
-            <div className="animate-fade-in">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={fadeVariant}
+            >
               {orders.map((order) => (
                 <Link
                   key={order._id}
@@ -97,7 +117,7 @@ const MyOrders = () => {
                   </div>
                 </Link>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
         <Footer />

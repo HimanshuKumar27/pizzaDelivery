@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { LogIn } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -27,7 +28,13 @@ const Login = () => {
 
   return (
     <div className="auth-page" onClick={() => navigate('/')}>
-      <div className="glass-card auth-card animate-scale-in" onClick={(e) => e.stopPropagation()}>
+      <motion.div 
+        className="glass-card auth-card" 
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="auth-header">
           <div className="auth-logo">🍕</div>
           <h1 className="auth-title">Welcome Back</h1>
@@ -81,7 +88,7 @@ const Login = () => {
           Don't have an account?{' '}
           <Link to="/register">Sign up</Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

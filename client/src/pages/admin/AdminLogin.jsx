@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import toast from 'react-hot-toast';
 import { Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -27,7 +28,12 @@ const AdminLogin = () => {
 
   return (
     <div className="auth-page">
-      <div className="glass-card auth-card animate-scale-in">
+      <motion.div 
+        className="glass-card auth-card"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="auth-header">
           <div className="auth-logo">🛡️</div>
           <h1 className="auth-title">Admin Portal</h1>
@@ -70,7 +76,7 @@ const AdminLogin = () => {
             {loading ? 'Signing in...' : <><Shield size={18} /> Admin Sign In</>}
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

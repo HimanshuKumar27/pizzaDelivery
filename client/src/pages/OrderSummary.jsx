@@ -6,6 +6,12 @@ import { openRazorpayCheckout } from '../utils/razorpay';
 import Navbar from '../components/Navbar';
 import toast from 'react-hot-toast';
 import { CreditCard, ArrowLeft, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const OrderSummary = () => {
   const { user } = useAuth();
@@ -105,7 +111,12 @@ const OrderSummary = () => {
     <>
       <Navbar />
       <div className="summary-page">
-        <div className="summary-container animate-fade-in">
+        <motion.div 
+          className="summary-container"
+          initial="hidden"
+          animate="visible"
+          variants={fadeVariant}
+        >
           <Link
             to="/build"
             style={{
@@ -210,7 +221,7 @@ const OrderSummary = () => {
           >
             🔒 Payments secured by Razorpay (Test Mode)
           </p>
-        </div>
+        </motion.div>
       </div>
     </>
   );

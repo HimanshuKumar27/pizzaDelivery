@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+
 import API from '../utils/api';
+import { motion } from 'framer-motion';
 
 const VerifyEmail = () => {
   const { token } = useParams();
@@ -23,7 +25,13 @@ const VerifyEmail = () => {
 
   return (
     <div className="auth-page">
-      <div className="glass-card auth-card animate-scale-in" style={{ textAlign: 'center' }}>
+      <motion.div 
+        className="glass-card auth-card" 
+        style={{ textAlign: 'center' }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         {status === 'verifying' && (
           <>
             <div className="auth-logo">⏳</div>
@@ -59,7 +67,7 @@ const VerifyEmail = () => {
             </Link>
           </>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

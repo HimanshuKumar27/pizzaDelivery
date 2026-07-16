@@ -6,6 +6,12 @@ import {
   Package, AlertTriangle, ShoppingBag, LogOut,
   BarChart3, Boxes, ClipboardList,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const AdminDashboard = () => {
   const { admin, logout } = useAdminAuth();
@@ -82,7 +88,12 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats */}
-        <div className="stats-grid animate-fade-in">
+        <motion.div 
+          className="stats-grid"
+          initial="hidden"
+          animate="visible"
+          variants={fadeVariant}
+        >
           <div className="glass-card stat-card">
             <div className="stat-icon orange">
               <ShoppingBag size={24} />
@@ -122,7 +133,7 @@ const AdminDashboard = () => {
               <p>Out of Stock</p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Quick Links */}
         <div

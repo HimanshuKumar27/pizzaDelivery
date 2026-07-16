@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import API from '../utils/api';
 import toast from 'react-hot-toast';
 import { Lock } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -40,7 +41,12 @@ const ResetPassword = () => {
 
   return (
     <div className="auth-page">
-      <div className="glass-card auth-card animate-scale-in">
+      <motion.div 
+        className="glass-card auth-card"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="auth-header">
           <div className="auth-logo">🔐</div>
           <h1 className="auth-title">Reset Password</h1>
@@ -87,7 +93,7 @@ const ResetPassword = () => {
         <div className="auth-footer">
           <Link to="/login">Back to Sign In</Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

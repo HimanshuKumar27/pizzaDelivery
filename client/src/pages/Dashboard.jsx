@@ -5,6 +5,12 @@ import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ChefHat, ShoppingBag, Clock, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -60,15 +66,26 @@ const Dashboard = () => {
       <div className="dashboard-page">
         <div className="container">
           {/* Header */}
-          <div className="dashboard-header animate-fade-in">
+          <motion.div 
+            className="dashboard-header"
+            initial="hidden"
+            animate="visible"
+            variants={fadeVariant}
+          >
             <p className="dashboard-welcome">Welcome back,</p>
             <h1 className="dashboard-title">
               {user?.name} 👋
             </h1>
-          </div>
+          </motion.div>
 
           {/* Stats */}
-          <div className="stats-grid animate-fade-in">
+          <motion.div 
+            className="stats-grid"
+            initial="hidden"
+            animate="visible"
+            variants={fadeVariant}
+            transition={{ delay: 0.1 }}
+          >
             <div className="glass-card stat-card">
               <div className="stat-icon orange">
                 <ShoppingBag size={24} />
@@ -98,11 +115,15 @@ const Dashboard = () => {
                 <p>Delivered</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Build Pizza CTA */}
-          <div
-            className="glass-card animate-fade-in"
+          <motion.div
+            className="glass-card"
+            initial="hidden"
+            animate="visible"
+            variants={fadeVariant}
+            transition={{ delay: 0.2 }}
             style={{
               padding: 'var(--space-2xl)',
               textAlign: 'center',
@@ -122,7 +143,7 @@ const Dashboard = () => {
             <Link to="/build" className="btn btn-primary btn-lg">
               <ChefHat size={20} /> Start Building
             </Link>
-          </div>
+          </motion.div>
 
           {/* Active Orders */}
           {activeOrders.length > 0 && (
@@ -136,7 +157,12 @@ const Dashboard = () => {
                   to={`/order/${order._id}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <div className="glass-card order-card animate-fade-in">
+                  <motion.div 
+                    className="glass-card order-card"
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeVariant}
+                  >
                     <div className="order-card-header">
                       <span className="order-id">#{order._id.slice(-8).toUpperCase()}</span>
                       <span className={`order-status-badge ${getStatusBadgeClass(order.status)}`}>
@@ -156,7 +182,7 @@ const Dashboard = () => {
                         ₹{order.totalAmount}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
               ))}
             </div>
@@ -172,7 +198,13 @@ const Dashboard = () => {
                 </Link>
               </div>
               {completedOrders.slice(0, 3).map((order) => (
-                <div key={order._id} className="glass-card order-card animate-fade-in">
+                <motion.div 
+                  key={order._id} 
+                  className="glass-card order-card"
+                  initial="hidden"
+                  animate="visible"
+                  variants={fadeVariant}
+                >
                   <div className="order-card-header">
                     <span className="order-id">#{order._id.slice(-8).toUpperCase()}</span>
                     <span className={`order-status-badge ${getStatusBadgeClass(order.status)}`}>
@@ -187,20 +219,25 @@ const Dashboard = () => {
                       ₹{order.totalAmount}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
 
           {orders.length === 0 && (
-            <div className="empty-state animate-fade-in">
+            <motion.div 
+              className="empty-state"
+              initial="hidden"
+              animate="visible"
+              variants={fadeVariant}
+            >
               <span className="empty-emoji">📭</span>
               <h3>No orders yet</h3>
               <p>Build your first custom pizza and place an order!</p>
               <Link to="/build" className="btn btn-primary">
                 <ChefHat size={18} /> Build Pizza
               </Link>
-            </div>
+            </motion.div>
           )}
         </div>
         <Footer />

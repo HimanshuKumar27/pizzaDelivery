@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../utils/api';
 import toast from 'react-hot-toast';
 import { Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -25,7 +26,12 @@ const ForgotPassword = () => {
 
   return (
     <div className="auth-page">
-      <div className="glass-card auth-card animate-scale-in">
+      <motion.div 
+        className="glass-card auth-card"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="auth-header">
           <div className="auth-logo">🔑</div>
           <h1 className="auth-title">Forgot Password</h1>
@@ -72,7 +78,7 @@ const ForgotPassword = () => {
           Remember your password?{' '}
           <Link to="/login">Sign in</Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

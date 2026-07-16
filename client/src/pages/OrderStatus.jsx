@@ -4,6 +4,12 @@ import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft, Check, Clock, ChefHat, Truck, Package } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const STATUSES = ['Order Received', 'In Kitchen', 'Sent to Delivery', 'Delivered'];
 
@@ -92,14 +98,18 @@ const OrderStatus = () => {
             <ArrowLeft size={16} /> Back to Dashboard
           </Link>
 
-          <div className="animate-fade-in">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={fadeVariant}
+          >
             <h1 className="heading-lg" style={{ marginBottom: 'var(--space-xs)' }}>
               Order #{order._id.slice(-8).toUpperCase()}
             </h1>
             <p style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-xl)' }}>
               Placed on {new Date(order.createdAt).toLocaleString()}
             </p>
-          </div>
+          </motion.div>
 
           {/* Status Tracker */}
           <div className="glass-card" style={{ padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }}>

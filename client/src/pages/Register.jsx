@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { UserPlus } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -54,10 +55,13 @@ const Register = () => {
 
   return (
     <div className="auth-page" onClick={() => navigate('/')}>
-      <div
-        className="glass-card auth-card animate-scale-in"
+      <motion.div
+        className="glass-card auth-card"
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 680 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
       >
         <div className="auth-header">
           <div className="auth-logo">🍕</div>
@@ -170,7 +174,7 @@ const Register = () => {
           Already have an account?{' '}
           <Link to="/login">Sign in</Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

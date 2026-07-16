@@ -3,6 +3,20 @@ import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ChefHat, Truck, CreditCard, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const containerVariant = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
@@ -13,7 +27,12 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-content animate-fade-in">
+        <motion.div 
+          className="hero-content"
+          initial="hidden"
+          animate="visible"
+          variants={fadeVariant}
+        >
           <span className="hero-emoji">🍕</span>
           <h1 className="heading-xl hero-title">
             Craft Your Perfect Pizza
@@ -44,7 +63,7 @@ const Home = () => {
               </>
             )}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
@@ -57,61 +76,67 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="features-grid">
-            <div className="glass-card feature-card animate-fade-in">
+          <motion.div 
+            className="features-grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariant}
+          >
+            <motion.div className="glass-card feature-card" variants={fadeVariant}>
               <span className="feature-icon">🎨</span>
               <h3>Custom Pizza Builder</h3>
               <p>
                 Choose from 5 bases, 5 sauces, premium cheeses, and fresh veggies.
                 Build it exactly the way you love it.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="glass-card feature-card animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <motion.div className="glass-card feature-card" variants={fadeVariant}>
               <span className="feature-icon">📦</span>
               <h3>Real-Time Tracking</h3>
               <p>
                 Watch your order journey live — from kitchen prep to delivery.
                 Always know where your pizza is.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="glass-card feature-card animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <motion.div className="glass-card feature-card" variants={fadeVariant}>
               <span className="feature-icon">💳</span>
               <h3>Secure Payments</h3>
               <p>
                 Pay with confidence via Razorpay's secure checkout. Fast, safe,
                 and hassle-free transactions.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="glass-card feature-card animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <motion.div className="glass-card feature-card" variants={fadeVariant}>
               <span className="feature-icon">🚀</span>
               <h3>Lightning Fast</h3>
               <p>
                 From order to doorstep in record time. Our streamlined process
                 means your pizza arrives hot and fresh.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="glass-card feature-card animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <motion.div className="glass-card feature-card" variants={fadeVariant}>
               <span className="feature-icon">🛡️</span>
               <h3>Fresh Ingredients</h3>
               <p>
                 We track every ingredient in real-time. Our inventory system
                 ensures only the freshest toppings make it to your pizza.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="glass-card feature-card animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <motion.div className="glass-card feature-card" variants={fadeVariant}>
               <span className="feature-icon">⭐</span>
               <h3>Premium Quality</h3>
               <p>
                 Every pizza is crafted with care. From hand-tossed dough to
                 artisanal sauces — taste the difference.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
