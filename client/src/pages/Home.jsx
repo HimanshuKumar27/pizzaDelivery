@@ -51,7 +51,7 @@ const Home = () => {
       <section className="section">
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 'var(--space-2xl)' }}>
-            <h2 className="heading-lg">Why PizzaHub?</h2>
+            <h2 className="heading-lg">Why PizzaByte?</h2>
             <p className="text-muted" style={{ marginTop: 'var(--space-sm)', fontSize: '1.05rem' }}>
               From kitchen to doorstep — a premium pizza experience
             </p>

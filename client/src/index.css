@@ -949,7 +949,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 700px;
+  max-width: 900px;
 }
 
 .hero-emoji {
@@ -961,6 +961,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-title {
   margin-bottom: var(--space-lg);
+  white-space: nowrap;
 }
 
 .hero-description {

@@ -58,7 +58,7 @@ const Register = () => {
         <div className="auth-header">
           <div className="auth-logo">🍕</div>
           <h1 className="auth-title">Create Account</h1>
-          <p className="auth-subtitle">Join PizzaHub and start ordering</p>
+          <p className="auth-subtitle">Join PizzaByte and start ordering</p>
         </div>
 
         <form onSubmit={handleSubmit}>
