@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { AdminAuthProvider } from './context/AdminAuthContext';
@@ -24,9 +25,21 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import InventoryManagement from './pages/admin/InventoryManagement';
 import OrderManagement from './pages/admin/OrderManagement';
 
+const ScrollHandler = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 function App() {
   return (
     <BrowserRouter>
+      <ScrollHandler />
       <AuthProvider>
         <AdminAuthProvider>
           <Toaster
