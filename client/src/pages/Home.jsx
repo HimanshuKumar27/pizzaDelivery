@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ChefHat, Truck, CreditCard, Shield } from 'lucide-react';
+import { ChefHat, Truck, CreditCard, Shield, Pizza, Palette, Compass, Zap, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const fadeVariant = {
@@ -84,7 +84,7 @@ const Home = () => {
             variants={containerVariant}
           >
             <motion.div className="glass-card feature-card" variants={fadeVariant}>
-              <span className="feature-icon">🎨</span>
+              <Palette size={40} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-md)' }} />
               <h3>Custom Pizza Builder</h3>
               <p>
                 Choose from 5 bases, 5 sauces, premium cheeses, and fresh veggies.
@@ -93,7 +93,7 @@ const Home = () => {
             </motion.div>
 
             <motion.div className="glass-card feature-card" variants={fadeVariant}>
-              <span className="feature-icon">📦</span>
+              <Compass size={40} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-md)' }} />
               <h3>Real-Time Tracking</h3>
               <p>
                 Watch your order journey live — from kitchen prep to delivery.
@@ -102,7 +102,7 @@ const Home = () => {
             </motion.div>
 
             <motion.div className="glass-card feature-card" variants={fadeVariant}>
-              <span className="feature-icon">💳</span>
+              <CreditCard size={40} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-md)' }} />
               <h3>Secure Payments</h3>
               <p>
                 Pay with confidence via Razorpay's secure checkout. Fast, safe,
@@ -111,7 +111,7 @@ const Home = () => {
             </motion.div>
 
             <motion.div className="glass-card feature-card" variants={fadeVariant}>
-              <span className="feature-icon">🚀</span>
+              <Zap size={40} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-md)' }} />
               <h3>Lightning Fast</h3>
               <p>
                 From order to doorstep in record time. Our streamlined process
@@ -120,7 +120,7 @@ const Home = () => {
             </motion.div>
 
             <motion.div className="glass-card feature-card" variants={fadeVariant}>
-              <span className="feature-icon">🛡️</span>
+              <Shield size={40} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-md)' }} />
               <h3>Fresh Ingredients</h3>
               <p>
                 We track every ingredient in real-time. Our inventory system
@@ -129,7 +129,7 @@ const Home = () => {
             </motion.div>
 
             <motion.div className="glass-card feature-card" variants={fadeVariant}>
-              <span className="feature-icon">⭐</span>
+              <Star size={40} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-md)' }} />
               <h3>Premium Quality</h3>
               <p>
                 Every pizza is crafted with care. From hand-tossed dough to

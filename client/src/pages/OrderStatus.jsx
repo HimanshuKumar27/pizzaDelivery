@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ArrowLeft, Check, Clock, ChefHat, Truck, Package } from 'lucide-react';
+import { ArrowLeft, Check, Clock, ChefHat, Truck, Package, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const fadeVariant = {
@@ -62,7 +62,7 @@ const OrderStatus = () => {
         <div className="dashboard-page">
           <div className="container">
             <div className="empty-state">
-              <span className="empty-emoji">🔍</span>
+              <Search size={64} style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-md)' }} />
               <h3>Order Not Found</h3>
               <p>This order doesn't exist or you don't have access.</p>
               <Link to="/dashboard" className="btn btn-primary">

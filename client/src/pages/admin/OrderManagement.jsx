@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { AdminAPI } from '../../utils/api';
 import toast from 'react-hot-toast';
-import { ArrowLeft, LogOut, RefreshCw } from 'lucide-react';
+import { ArrowLeft, LogOut, RefreshCw, Inbox } from 'lucide-react';
 
 const STATUSES = ['Order Received', 'In Kitchen', 'Sent to Delivery', 'Delivered'];
 
@@ -101,7 +101,7 @@ const OrderManagement = () => {
         {/* Orders List */}
         {orders.length === 0 ? (
           <div className="empty-state">
-            <span className="empty-emoji">📭</span>
+            <Inbox size={64} style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-md)' }} />
             <h3>No orders found</h3>
             <p>Orders will appear here as customers place them.</p>
           </div>

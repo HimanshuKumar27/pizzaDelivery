@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ChefHat, ShoppingBag, Clock, TrendingUp } from 'lucide-react';
+import { ChefHat, ShoppingBag, Clock, MapPin, ClipboardList, TrendingUp, Inbox } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const fadeVariant = {
@@ -231,7 +231,7 @@ const Dashboard = () => {
               animate="visible"
               variants={fadeVariant}
             >
-              <span className="empty-emoji">📭</span>
+              <Inbox size={64} style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-md)' }} />
               <h3>No orders yet</h3>
               <p>Build your first custom pizza and place an order!</p>
               <Link to="/build" className="btn btn-primary">

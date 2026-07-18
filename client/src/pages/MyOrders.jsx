@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../utils/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ChefHat } from 'lucide-react';
+import { ChefHat, Inbox } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const fadeVariant = {
@@ -74,7 +74,7 @@ const MyOrders = () => {
               animate="visible"
               variants={fadeVariant}
             >
-              <span className="empty-emoji">📭</span>
+              <Inbox size={64} style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-md)' }} />
               <h3>No orders yet</h3>
               <p>Your order history will appear here</p>
               <Link to="/build" className="btn btn-primary">

@@ -68,7 +68,7 @@ const ForgotPassword = () => {
           </form>
         ) : (
           <div className="empty-state" style={{ padding: 'var(--space-lg) 0' }}>
-            <span className="empty-emoji">📧</span>
+            <Mail size={64} style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-md)' }} />
             <h3>Email Sent!</h3>
             <p>If an account with that email exists, you'll receive a password reset link.</p>
           </div>
