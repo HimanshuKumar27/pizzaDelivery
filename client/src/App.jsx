@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { AdminAuthProvider } from './context/AdminAuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 
@@ -39,17 +40,18 @@ const ScrollHandler = () => {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollHandler />
-      <AuthProvider>
-        <AdminAuthProvider>
+      <ThemeProvider>
+        <ScrollHandler />
+        <AuthProvider>
+          <AdminAuthProvider>
           <Toaster
             position="top-right"
             toastOptions={{
               duration: 4000,
               style: {
-                background: '#1a1a2e',
-                color: '#f0f0f5',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-secondary)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-color)',
                 borderRadius: '12px',
                 fontFamily: "'Inter', sans-serif",
               },
@@ -86,6 +88,7 @@ function App() {
           </Routes>
         </AdminAuthProvider>
       </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
