@@ -4,6 +4,7 @@ const User = require('../models/User');
 const {
   sendVerificationEmail,
   sendPasswordResetEmail,
+  sendWelcomeEmail,
 } = require('../utils/emailService');
 
 /**
@@ -32,9 +33,6 @@ const register = async (req, res) => {
       });
     }
 
-    // Generate verification token
-    const verificationToken = crypto.randomBytes(32).toString('hex');
-
     // Create user
     const user = await User.create({
       name,
@@ -42,22 +40,20 @@ const register = async (req, res) => {
       password,
       phone,
       address,
-      verificationToken,
-      isVerified: false,
+      isVerified: true,
     });
 
-    // Send verification email
+    // Send welcome email
     try {
-      await sendVerificationEmail(email, name, verificationToken);
+      await sendWelcomeEmail(email, name);
     } catch (emailError) {
-      console.error('Failed to send verification email:', emailError.message);
+      console.error('Failed to send welcome email:', emailError.message);
       // Don't block registration if email fails
     }
 
     res.status(201).json({
       success: true,
-      message:
-        'Registration successful! Please check your email to verify your account.',
+      message: 'Registration successful! Welcome to PizzaByte.',
       user: {
         id: user._id,
         name: user.name,
@@ -128,6 +124,15 @@ const login = async (req, res) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
+      const Admin = require('../models/Admin');
+      const adminExists = await Admin.findOne({ email });
+      if (adminExists) {
+        return res.status(400).json({
+          success: false,
+          message: 'This email belongs to an Admin account. Please use the Admin Login portal.',
+        });
+      }
+
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password',
@@ -141,14 +146,6 @@ const login = async (req, res) => {
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password',
-      });
-    }
-
-    // Check if email is verified
-    if (!user.isVerified) {
-      return res.status(403).json({
-        success: false,
-        message: 'Please verify your email before logging in',
       });
     }
 

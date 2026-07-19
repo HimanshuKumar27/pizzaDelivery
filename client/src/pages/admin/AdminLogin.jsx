@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import toast from 'react-hot-toast';
 import { Shield } from 'lucide-react';
@@ -35,7 +35,9 @@ const AdminLogin = () => {
         transition={{ duration: 0.3 }}
       >
         <div className="auth-header">
-          <div className="auth-logo">🛡️</div>
+          <div className="auth-logo" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
+            <Shield size={48} style={{ color: 'var(--accent-primary)' }} />
+          </div>
           <h1 className="auth-title">Admin Portal</h1>
           <p className="auth-subtitle">Authorized personnel only</p>
         </div>
@@ -47,7 +49,7 @@ const AdminLogin = () => {
               id="admin-email"
               className="form-input"
               type="email"
-              placeholder="admin@pizzadelivery.com"
+              placeholder="Enter your admin email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -76,6 +78,10 @@ const AdminLogin = () => {
             {loading ? 'Signing in...' : <><Shield size={18} /> Admin Sign In</>}
           </button>
         </form>
+
+        <div className="auth-footer" style={{ marginTop: 'var(--space-lg)', textAlign: 'center', fontSize: '0.85rem', opacity: 0.8 }}>
+          Are you a Customer? <Link to="/login">Customer Login</Link>
+        </div>
       </motion.div>
     </div>
   );

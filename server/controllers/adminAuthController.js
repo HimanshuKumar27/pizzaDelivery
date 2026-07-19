@@ -28,6 +28,15 @@ const adminLogin = async (req, res) => {
     const admin = await Admin.findOne({ email }).select('+password');
 
     if (!admin) {
+      const User = require('../models/User');
+      const userExists = await User.findOne({ email });
+      if (userExists) {
+        return res.status(400).json({
+          success: false,
+          message: 'This email is registered as a customer. Please log in through the User Login page.',
+        });
+      }
+
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials',

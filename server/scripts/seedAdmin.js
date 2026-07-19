@@ -3,7 +3,7 @@
  * Run once: node scripts/seedAdmin.js
  *
  * Default Admin Credentials:
- *   Email: admin@pizzadelivery.com
+ *   Email: admin@pizzabyte.com
  *   Password: admin123456
  *   Username: admin
  */
@@ -49,17 +49,17 @@ const seedDatabase = async () => {
     console.log('\n🌱 Starting database seed...\n');
 
     // --- Seed Admin ---
-    const existingAdmin = await Admin.findOne({ email: 'admin@pizzadelivery.com' });
+    const existingAdmin = await Admin.findOne({ email: 'admin@pizzabyte.com' });
     if (existingAdmin) {
       console.log('👤 Admin account already exists — skipping');
     } else {
       await Admin.create({
         username: 'admin',
-        email: 'admin@pizzadelivery.com',
+        email: 'admin@pizzabyte.com',
         password: 'admin123456',
       });
       console.log('👤 Admin account created:');
-      console.log('   Email: admin@pizzadelivery.com');
+      console.log('   Email: admin@pizzabyte.com');
       console.log('   Password: admin123456');
       console.log('   ⚠️  Change the password after first login!\n');
     }

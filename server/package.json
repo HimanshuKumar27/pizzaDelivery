@@ -1,5 +1,5 @@
 {
-  "name": "pizza-delivery-server",
+  "name": "pizzabyte-server",
   "version": "1.0.0",
   "description": "Pizza Delivery Backend API — Express + MongoDB + Razorpay",
   "main": "server.js",

@@ -84,9 +84,14 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="auth-footer">
-          Don't have an account?{' '}
-          <Link to="/register">Sign up</Link>
+        <div className="auth-footer" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div>
+            Don't have an account?{' '}
+            <Link to="/register">Sign up</Link>
+          </div>
+          <div style={{ fontSize: '0.85rem', opacity: 0.8 }}>
+            Are you an Admin? <Link to="/admin/login">Admin Portal</Link>
+          </div>
         </div>
       </motion.div>
     </div>

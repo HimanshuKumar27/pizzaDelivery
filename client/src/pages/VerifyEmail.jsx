@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import API from '../utils/api';
@@ -8,8 +8,12 @@ const VerifyEmail = () => {
   const { token } = useParams();
   const [status, setStatus] = useState('verifying'); // verifying, success, error
   const [message, setMessage] = useState('');
+  const hasRun = useRef(false);
 
   useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+
     const verify = async () => {
       try {
         const { data } = await API.get(`/auth/verify-email/${token}`);

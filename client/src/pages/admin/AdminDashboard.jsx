@@ -4,7 +4,7 @@ import { useAdminAuth } from '../../context/AdminAuthContext';
 import { AdminAPI } from '../../utils/api';
 import {
   Package, AlertTriangle, ShoppingBag, LogOut,
-  BarChart3, Boxes, ClipboardList,
+  BarChart3, Boxes, ClipboardList, Shield,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -75,8 +75,8 @@ const AdminDashboard = () => {
           }}
         >
           <div>
-            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem' }}>
-              🛡️ Admin Panel
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Shield size={24} style={{ color: 'var(--accent-primary)' }} /> Admin Panel
             </h1>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
               Welcome, {admin?.username}

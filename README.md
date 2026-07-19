@@ -13,9 +13,10 @@ A production-grade pizza ordering & inventory management platform with separate 
 ## ✨ Features
 
 ### User Side
-- ✅ User registration with email verification
+- ✅ User registration with welcome email
 - ✅ JWT-based authentication
 - ✅ Forgot password flow with email reset link
+- ✅ Automated order confirmation email with full details
 - ✅ Dashboard displaying order history and stats
 - ✅ **Custom Pizza Builder** (4-step animated flow):
   - Step 1: Choose a pizza base (5 options)
@@ -55,7 +56,7 @@ A production-grade pizza ordering & inventory management platform with separate 
 ## 📁 Project Structure
 
 ```
-pizzaDelivery/
+PizzaByte/
 ├── server/                    # Backend API
 │   ├── config/db.js           # MongoDB connection
 │   ├── controllers/           # Business logic
@@ -105,7 +106,7 @@ pizzaDelivery/
 8. Replace `<password>` with your actual database user password
 9. Add the database name to the URI:
    ```
-   mongodb+srv://pizzaAdmin:yourpassword@cluster0.xxxxx.mongodb.net/pizzaDelivery?retryWrites=true&w=majority
+   mongodb+srv://pizzaAdmin:yourpassword@cluster0.xxxxx.mongodb.net/PizzaByte?retryWrites=true&w=majority
    ```
 
 ---
@@ -218,7 +219,6 @@ Client will start on `http://localhost:5173`
 | Method | Endpoint                 | Auth   | Description                |
 |--------|--------------------------|--------|----------------------------|
 | POST   | `/register`              | Public | Register new user          |
-| GET    | `/verify-email/:token`   | Public | Verify email               |
 | POST   | `/login`                 | Public | Login, get JWT             |
 | POST   | `/forgot-password`       | Public | Send password reset email  |
 | POST   | `/reset-password/:token` | Public | Reset password             |
@@ -276,7 +276,8 @@ Client will start on `http://localhost:5173`
 
 | Email Type          | When Sent                           |
 |---------------------|-------------------------------------|
-| Verification        | On user registration                |
+| Welcome             | On user registration                |
+| Order Confirmation  | On successful order placement       |
 | Password Reset      | On forgot password request          |
 | Low Stock Alert     | Every 30 min (if items below threshold) |
 

@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const InventoryItem = require('../models/InventoryItem');
+const { sendOrderConfirmationEmail } = require('../utils/emailService');
 
 /**
  * @route   POST /api/orders
@@ -105,6 +106,17 @@ const createOrder = async (req, res) => {
       .populate('items.cheese', 'name category pricePerUnit')
       .populate('items.vegetables', 'name category pricePerUnit')
       .populate('user', 'name email');
+
+    // Send order confirmation email
+    try {
+      await sendOrderConfirmationEmail(
+        populatedOrder.user.email,
+        populatedOrder.user.name,
+        populatedOrder
+      );
+    } catch (emailError) {
+      console.error('Failed to send order confirmation email:', emailError.message);
+    }
 
     res.status(201).json({
       success: true,
