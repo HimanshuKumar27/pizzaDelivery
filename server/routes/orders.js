@@ -7,6 +7,7 @@ const {
   getOrderById,
   getAllOrders,
   updateOrderStatus,
+  getAdminStats,
 } = require('../controllers/orderController');
 
 // User routes
@@ -14,6 +15,7 @@ router.post('/', protect, createOrder);
 router.get('/my-orders', protect, getMyOrders);
 
 // Admin routes (must be before /:id to avoid conflicts)
+router.get('/admin/stats', adminProtect, getAdminStats);
 router.get('/admin/all', adminProtect, getAllOrders);
 router.put('/:id/status', adminProtect, updateOrderStatus);
 

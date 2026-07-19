@@ -86,4 +86,9 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Order', orderSchema);
+// Indexes for performance and sorting
+orderSchema.index({ user: 1, createdAt: -1 });
+orderSchema.index({ createdAt: -1 });
+orderSchema.index({ status: 1 });
+
+module.exports = mongoose.models.Order || mongoose.model('Order', orderSchema);

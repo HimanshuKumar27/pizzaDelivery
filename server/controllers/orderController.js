@@ -30,7 +30,8 @@ const createOrder = async (req, res) => {
       });
     }
 
-    // Validate and decrement stock for each pizza item
+    // Map of itemId -> count required across all pizzas
+    const requiredQuantities = {};
     for (const pizza of items) {
       const allItemIds = [
         pizza.base,
@@ -38,47 +39,73 @@ const createOrder = async (req, res) => {
         pizza.cheese,
         ...pizza.vegetables,
       ];
-
-      // Check stock availability for each ingredient
       for (const itemId of allItemIds) {
-        const item = await InventoryItem.findById(itemId);
-        if (!item) {
-          return res.status(400).json({
-            success: false,
-            message: `Inventory item not found: ${itemId}`,
-          });
-        }
-        if (item.quantity < 1) {
-          return res.status(400).json({
-            success: false,
-            message: `${item.name} is out of stock`,
-          });
+        if (itemId) {
+          requiredQuantities[itemId] = (requiredQuantities[itemId] || 0) + 1;
         }
       }
+    }
 
-      // Atomically decrement stock for each ingredient
-      for (const itemId of allItemIds) {
-        const result = await InventoryItem.findOneAndUpdate(
-          { _id: itemId, quantity: { $gte: 1 } },
-          { $inc: { quantity: -1 } },
-          { new: true }
-        );
+    const uniqueItemIds = Object.keys(requiredQuantities);
 
-        if (!result) {
-          // Race condition: item went out of stock between check and decrement
-          // Roll back previous decrements for this pizza
-          const idx = allItemIds.indexOf(itemId);
-          for (let i = 0; i < idx; i++) {
-            await InventoryItem.findByIdAndUpdate(allItemIds[i], {
-              $inc: { quantity: 1 },
-            });
+    // 1. Batch-fetch all items in a single query (Optimized)
+    const inventoryItems = await InventoryItem.find({ _id: { $in: uniqueItemIds } });
+    const inventoryMap = {};
+    for (const item of inventoryItems) {
+      inventoryMap[item._id.toString()] = item;
+    }
+
+    // 2. Validate stock in-memory (Optimized)
+    for (const itemId of uniqueItemIds) {
+      const item = inventoryMap[itemId];
+      if (!item) {
+        return res.status(400).json({
+          success: false,
+          message: `Inventory item not found: ${itemId}`,
+        });
+      }
+      const needed = requiredQuantities[itemId];
+      if (item.quantity < needed) {
+        return res.status(400).json({
+          success: false,
+          message: `${item.name} is out of stock (needed ${needed}, available ${item.quantity})`,
+        });
+      }
+    }
+
+    // 3. Atomically decrement stock in parallel (Optimized)
+    const completedUpdates = [];
+    try {
+      await Promise.all(
+        uniqueItemIds.map(async (itemId) => {
+          const needed = requiredQuantities[itemId];
+          const result = await InventoryItem.findOneAndUpdate(
+            { _id: itemId, quantity: { $gte: needed } },
+            { $inc: { quantity: -needed } },
+            { new: true }
+          );
+          if (!result) {
+            throw new Error(itemId);
           }
-          return res.status(400).json({
-            success: false,
-            message: 'An item went out of stock. Please try again.',
-          });
-        }
-      }
+          completedUpdates.push(itemId);
+        })
+      );
+    } catch (err) {
+      // Rollback completed updates in parallel
+      const failedItemId = err.message;
+      await Promise.all(
+        completedUpdates.map((itemId) =>
+          InventoryItem.findByIdAndUpdate(itemId, {
+            $inc: { quantity: requiredQuantities[itemId] },
+          })
+        )
+      );
+
+      const failedItem = inventoryMap[failedItemId] || { name: 'An item' };
+      return res.status(400).json({
+        success: false,
+        message: `${failedItem.name} went out of stock. Please try again.`,
+      });
     }
 
     // Create the order
@@ -306,10 +333,36 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+/**
+ * @route   GET /api/orders/admin/stats
+ * @desc    Get dashboard stats (admin only, high performance)
+ */
+const getAdminStats = async (req, res) => {
+  try {
+    const [totalOrders, activeOrders] = await Promise.all([
+      Order.countDocuments(),
+      Order.countDocuments({ status: { $ne: 'Delivered' } }),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      totalOrders,
+      activeOrders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch dashboard stats',
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createOrder,
   getMyOrders,
   getOrderById,
   getAllOrders,
   updateOrderStatus,
+  getAdminStats,
 };

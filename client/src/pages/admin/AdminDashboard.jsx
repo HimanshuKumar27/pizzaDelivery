@@ -26,16 +26,14 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [ordersRes, inventoryRes] = await Promise.all([
-          AdminAPI.get('/orders/admin/all?limit=1'),
+        const [statsRes, inventoryRes] = await Promise.all([
+          AdminAPI.get('/orders/admin/stats'),
           AdminAPI.get('/inventory/admin/all'),
         ]);
 
         setStats({
-          totalOrders: ordersRes.data.total || 0,
-          activeOrders: ordersRes.data.orders?.filter(
-            (o) => o.status !== 'Delivered'
-          ).length || 0,
+          totalOrders: statsRes.data.totalOrders || 0,
+          activeOrders: statsRes.data.activeOrders || 0,
           inventoryStats: inventoryRes.data.stats || { total: 0, lowStock: 0, outOfStock: 0 },
         });
       } catch (err) {
