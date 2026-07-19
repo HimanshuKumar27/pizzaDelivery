@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -23,9 +23,13 @@ const containerVariant = {
 const Home = () => {
   const { isAuthenticated } = useAuth();
   const { changeTheme } = useTheme();
+  const hasCheckedTheme = useRef(false);
 
   useEffect(() => {
-    changeTheme('light');
+    if (!hasCheckedTheme.current) {
+      hasCheckedTheme.current = true;
+      changeTheme('light');
+    }
   }, [changeTheme]);
 
   return (
