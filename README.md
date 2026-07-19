@@ -294,6 +294,35 @@ When the Razorpay checkout modal opens in test mode:
 
 ---
 
+## 🚀 Deployment Guide
+
+This project is set up to be deployed on two separate platforms for best performance and free hosting:
+- **Backend (Express API)**: Hosted on **Render** (Node.js web service).
+- **Frontend (Vite/React)**: Hosted on **Vercel** (Static site with built-in Vercel Analytics).
+
+### 1. Deploy Backend to Render
+1. Sign up on **[Render.com](https://render.com/)** and create a new **Web Service**.
+2. Connect your GitHub repository and set:
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+3. In **Environment Variables**, add all environment variables from `server/.env` (e.g. `MONGO_URI`, `JWT_SECRET`, `RAZORPAY_KEY_ID`, etc.).
+4. Leave `FRONTEND_URL` blank for now. Click **Create Web Service** and copy the live URL (e.g. `https://pizzabyte-backend.onrender.com`).
+
+### 2. Deploy Frontend to Vercel
+1. Sign up on **[Vercel.com](https://vercel.com/)** and import your repository.
+2. Edit **Root Directory** and select the **`client`** folder.
+3. In **Environment Variables**, add:
+   - `VITE_API_URL`: Your live Render API URL with `/api` at the end (e.g., `https://pizzabyte-backend.onrender.com/api`).
+4. Click **Deploy**. Copy your new live Vercel URL (e.g., `https://pizzabyte.vercel.app`).
+
+### 3. Connect them
+1. Go back to Render → **Environment** settings.
+2. Update `FRONTEND_URL` to match your Vercel URL (e.g., `https://pizzabyte.vercel.app`).
+3. Save changes to trigger a rebuild.
+
+---
+
 ## 📝 Author
 
 Built with 🍕 and ❤️ by Himanshu Kumar
