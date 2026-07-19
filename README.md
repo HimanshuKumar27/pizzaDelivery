@@ -106,7 +106,7 @@ PizzaByte/
 8. Replace `<password>` with your actual database user password
 9. Add the database name to the URI:
    ```
-   mongodb+srv://pizzaAdmin:yourpassword@cluster0.xxxxx.mongodb.net/PizzaByte?retryWrites=true&w=majority
+   mongodb+srv://[EMAIL_ADDRESS]:[PASSWORD]@cluster0.xxxxx.mongodb.net/PizzaByte?retryWrites=true&w=majority
    ```
 
 ---
