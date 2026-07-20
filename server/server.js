@@ -16,16 +16,28 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // --------------- Middleware ---------------
-let frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:5173').trim();
-if (frontendUrl.endsWith('/')) {
-  frontendUrl = frontendUrl.slice(0, -1);
-}
-
-console.log('🔒 CORS Allowed Origin:', frontendUrl);
-
 app.use(
   cors({
-    origin: frontendUrl,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      const allowed = process.env.FRONTEND_URL || 'http://localhost:5173';
+      const cleanOrigin = origin.replace(/\/+$/, '');
+      const cleanAllowed = allowed.replace(/\/+$/, '');
+
+      // Allow if it matches allowed, matches localhost, or matches the explicit Vercel origin
+      if (
+        cleanOrigin === cleanAllowed ||
+        cleanOrigin === 'https://pizzabyte-pizza-delivery-platform.vercel.app' ||
+        cleanOrigin.startsWith('http://localhost') ||
+        cleanOrigin.startsWith('http://127.0.0.1')
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+      }
+    },
     credentials: true,
   })
 );
