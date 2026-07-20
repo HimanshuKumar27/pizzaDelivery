@@ -69,7 +69,7 @@ const Navbar = () => {
             <div className="navbar-auth-desktop">
               {isAuthenticated ? (
                 <>
-                  <span className="user-greeting" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  <span className="user-greeting" style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                     <User size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
                     {user?.name}
                   </span>
