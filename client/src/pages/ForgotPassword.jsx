@@ -50,7 +50,7 @@ const ForgotPassword = () => {
                 id="forgot-email"
                 className="form-input"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -67,10 +67,29 @@ const ForgotPassword = () => {
             </button>
           </form>
         ) : (
-          <div className="empty-state" style={{ padding: 'var(--space-lg) 0' }}>
-            <Mail size={64} style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-md)' }} />
-            <h3>Email Sent!</h3>
-            <p>If an account with that email exists, you'll receive a password reset link.</p>
+          <div className="empty-state" style={{ padding: 'var(--space-md) 0', textAlign: 'center' }}>
+            <Mail size={56} style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-sm)' }} />
+            <h3 style={{ marginBottom: 'var(--space-xs)' }}>Check Your Email</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>
+              We sent a password reset link to <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>.
+            </p>
+            <div className="glass-card" style={{ padding: 'var(--space-sm) var(--space-md)', fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'left', marginBottom: 'var(--space-md)' }}>
+              <strong>Didn't receive the email?</strong>
+              <ul style={{ paddingLeft: '1.2rem', marginTop: '6px', marginBottom: 0 }}>
+                <li>Check your spam or junk folder.</li>
+                <li>Ensure the email address entered is correct.</li>
+                <li>Wait a couple of minutes for delivery.</li>
+              </ul>
+            </div>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              disabled={loading}
+              onClick={handleSubmit}
+              style={{ width: '100%', marginBottom: 'var(--space-xs)' }}
+            >
+              {loading ? 'Resending...' : 'Resend Email'}
+            </button>
           </div>
         )}
 

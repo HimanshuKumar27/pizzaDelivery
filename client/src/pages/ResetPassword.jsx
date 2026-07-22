@@ -60,7 +60,7 @@ const ResetPassword = () => {
               id="reset-password"
               className="form-input"
               type="password"
-              placeholder="Min. 6 characters"
+              placeholder="Enter your new password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -73,7 +73,7 @@ const ResetPassword = () => {
               id="reset-confirm"
               className="form-input"
               type="password"
-              placeholder="Re-enter new password"
+              placeholder="Confirm your new password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required

@@ -226,7 +226,7 @@ const InventoryManagement = () => {
               <form onSubmit={handleAddItem}>
                 <div className="form-group">
                   <label className="form-label">Name</label>
-                  <input className="form-input" type="text" value={newItem.name} onChange={(e) => setNewItem({ ...newItem, name: e.target.value })} required />
+                  <input className="form-input" type="text" placeholder="Enter item name" value={newItem.name} onChange={(e) => setNewItem({ ...newItem, name: e.target.value })} required />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Category</label>
@@ -238,20 +238,20 @@ const InventoryManagement = () => {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Description</label>
-                  <input className="form-input" type="text" value={newItem.description} onChange={(e) => setNewItem({ ...newItem, description: e.target.value })} />
+                  <input className="form-input" type="text" placeholder="Enter item description" value={newItem.description} onChange={(e) => setNewItem({ ...newItem, description: e.target.value })} />
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-md)' }}>
                   <div className="form-group">
                     <label className="form-label">Quantity</label>
-                    <input className="form-input" type="number" min="0" value={newItem.quantity} onChange={(e) => setNewItem({ ...newItem, quantity: parseInt(e.target.value) || 0 })} />
+                    <input className="form-input" type="number" min="0" placeholder="Enter quantity" value={newItem.quantity} onChange={(e) => setNewItem({ ...newItem, quantity: parseInt(e.target.value) || 0 })} />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Price (₹)</label>
-                    <input className="form-input" type="number" min="0" value={newItem.pricePerUnit} onChange={(e) => setNewItem({ ...newItem, pricePerUnit: parseInt(e.target.value) || 0 })} required />
+                    <input className="form-input" type="number" min="0" placeholder="Enter price per unit" value={newItem.pricePerUnit} onChange={(e) => setNewItem({ ...newItem, pricePerUnit: parseInt(e.target.value) || 0 })} required />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Threshold</label>
-                    <input className="form-input" type="number" min="0" value={newItem.threshold} onChange={(e) => setNewItem({ ...newItem, threshold: parseInt(e.target.value) || 0 })} />
+                    <input className="form-input" type="number" min="0" placeholder="Enter low stock threshold" value={newItem.threshold} onChange={(e) => setNewItem({ ...newItem, threshold: parseInt(e.target.value) || 0 })} />
                   </div>
                 </div>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
