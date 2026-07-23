@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ChefHat, Truck, CreditCard, Shield, Pizza, Palette, Compass, Zap, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { warmupBackend } from '../utils/api';
 
 const fadeVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -26,6 +27,9 @@ const Home = () => {
   const hasCheckedTheme = useRef(false);
 
   useEffect(() => {
+    // Automatically trigger backend service warmup when Home page loads
+    warmupBackend();
+
     if (!hasCheckedTheme.current) {
       hasCheckedTheme.current = true;
       changeTheme('light');

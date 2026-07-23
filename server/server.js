@@ -56,12 +56,21 @@ app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --------------- Routes ---------------
+// Health check endpoint for zero cold-start warmup
+app.get(['/health', '/api/health'], (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Backend service is active',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.get('/', (req, res) => {
   res.json({
     message: '🍕 Pizza Delivery API is running!',
     version: '1.0.0',
     endpoints: {
+      health: '/api/health',
       auth: '/api/auth',
       admin: '/api/admin',
       inventory: '/api/inventory',

@@ -26,6 +26,8 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import InventoryManagement from './pages/admin/InventoryManagement';
 import OrderManagement from './pages/admin/OrderManagement';
 
+import { warmupBackend } from './utils/api';
+
 const ScrollHandler = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -38,6 +40,11 @@ const ScrollHandler = () => {
 };
 
 function App() {
+  useEffect(() => {
+    // Automatically trigger backend service warmup on initial app/page load
+    warmupBackend();
+  }, []);
+
   return (
     <BrowserRouter>
       <ThemeProvider>

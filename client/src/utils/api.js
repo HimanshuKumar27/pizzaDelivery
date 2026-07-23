@@ -53,5 +53,30 @@ AdminAPI.interceptors.request.use((config) => {
   return config;
 });
 
-export { API, AdminAPI };
+// Non-blocking Render backend warmup ping to eliminate cold-start wait times
+let warmupPromise = null;
+
+const warmupBackend = () => {
+  if (warmupPromise) return warmupPromise;
+
+  warmupPromise = (async () => {
+    try {
+      // 60-second timeout allows Render free tier instance to finish cold boot
+      const res = await API.get('/health', { timeout: 60000 });
+      return res.data;
+    } catch {
+      try {
+        const fallbackRes = await API.get('/', { timeout: 60000 });
+        return fallbackRes.data;
+      } catch (err) {
+        console.warn('Backend warmup ping error:', err.message);
+        warmupPromise = null; // reset so next retry can attempt
+      }
+    }
+  })();
+
+  return warmupPromise;
+};
+
+export { API, AdminAPI, warmupBackend };
 export default API;
