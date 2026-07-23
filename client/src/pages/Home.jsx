@@ -130,7 +130,7 @@ const Home = () => {
               variants={slideRightVariant}
             >
               <img 
-                src="/images/hero_pizza_banner.png" 
+                src="/images/hero_pizza_banner.webp" 
                 alt="Gourmet Pizza Banner" 
                 className="hero-main-img"
               />
@@ -184,7 +184,7 @@ const Home = () => {
               variants={slideLeftVariant}
             >
               <img 
-                src="/images/custom_builder_showcase.png" 
+                src="/images/custom_builder_showcase.webp" 
                 alt="Interactive Builder Concept" 
                 className="showcase-img"
               />
@@ -292,7 +292,7 @@ const Home = () => {
               variants={slideRightVariant}
             >
               <img 
-                src="/images/fresh_ingredients_showcase.png" 
+                src="/images/fresh_ingredients_showcase.webp" 
                 alt="Fresh Organic Ingredients" 
                 className="showcase-img"
               />
