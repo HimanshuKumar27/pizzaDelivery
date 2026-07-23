@@ -1,7 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { 
@@ -41,18 +40,11 @@ const scaleVariant = {
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
-  const { changeTheme } = useTheme();
-  const hasCheckedTheme = useRef(false);
 
   useEffect(() => {
     // Automatically trigger backend service warmup when Home page loads
     warmupBackend();
-
-    if (!hasCheckedTheme.current) {
-      hasCheckedTheme.current = true;
-      changeTheme('light');
-    }
-  }, [changeTheme]);
+  }, []);
 
   return (
     <>
