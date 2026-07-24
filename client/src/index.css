@@ -554,9 +554,14 @@ h1, h2, h3, h4, h5, h6 {
   gap: var(--space-md);
 }
 
-.mobile-drawer,
 .navbar-auth-mobile {
   display: none;
+}
+
+@media (min-width: 769px) {
+  .mobile-drawer {
+    display: none !important;
+  }
 }
 
 /* ===== Dashboard Layout ===== */
@@ -1244,6 +1249,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .mobile-drawer {
+    display: block;
     position: fixed;
     top: 70px;
     left: 0;
