@@ -47,7 +47,7 @@ A production-grade pizza ordering & inventory management platform with separate 
 | Database   | MongoDB Atlas                       |
 | Payments   | Razorpay (test mode)                |
 | Auth       | JWT (JSON Web Tokens) + bcrypt      |
-| Email      | Nodemailer (Gmail / Ethereal)       |
+| Email      | Brevo (Transactional REST API)      |
 | Scheduling | node-cron                           |
 | Styling    | Vanilla CSS (dark theme, glassmorphism) |
 
@@ -63,7 +63,7 @@ PizzaByte/
 │   ├── middleware/auth.js     # JWT guards (user + admin)
 │   ├── models/                # Mongoose schemas
 │   ├── routes/                # API route definitions
-│   ├── utils/emailService.js  # Nodemailer setup
+│   ├── utils/emailService.js  # Brevo API integration
 │   ├── jobs/inventoryCheck.js # Cron job for stock alerts
 │   ├── scripts/seedAdmin.js   # DB seed script
 │   └── server.js              # Entry point
@@ -85,7 +85,7 @@ PizzaByte/
 - **npm** v9+ installed
 - A **MongoDB Atlas** account (free tier works)
 - A **Razorpay** account (for test mode keys)
-- (Optional) A **Gmail** account with App Password for emails
+- A **Brevo** account & API key (for transactional emails)
 
 ---
 
@@ -147,18 +147,16 @@ PizzaByte/
    RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxx
    RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
 
-   EMAIL_HOST=smtp.gmail.com
-   EMAIL_PORT=587
-   EMAIL_USER=your_gmail@gmail.com
-   EMAIL_PASS=your_gmail_app_password
-   EMAIL_FROM=your_gmail@gmail.com
-   ADMIN_EMAIL=your_gmail@gmail.com
+   BREVO_API_KEY=xkeysib-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   BREVO_SENDER_EMAIL=your_verified_sender@domain.com
+   BREVO_SENDER_NAME=PizzaByte 🍕
+   ADMIN_EMAIL=admin@pizzadelivery.com
 
    FRONTEND_URL=http://localhost:5173
    INVENTORY_THRESHOLD=20
    ```
 
-> 💡 **Email Setup**: Supports Ethereal (fake SMTP), Gmail (using an App Password), or Resend (using Resend SMTP). See `server/utils/emailService.js` for details.
+> 💡 **Email Setup**: Powered by **Brevo API** (v3). Set `BREVO_API_KEY` and `BREVO_SENDER_EMAIL` in `server/.env`. See `server/utils/emailService.js` for details.
 
 ---
 
@@ -281,7 +279,7 @@ Client will start on `http://localhost:5173`
 | Password Reset      | On forgot password request          |
 | Low Stock Alert     | Every 30 min (if items below threshold) |
 
-> Without real email credentials, the app uses **Ethereal** (fake SMTP). Check the server console for preview URLs to see the emails.
+> Powered by **Brevo Transactional Email API (v3)**. Set `BREVO_API_KEY` and `BREVO_SENDER_EMAIL` in `server/.env` for live email delivery. If the key is not set, email dispatches log cleanly in the server console without sending fake/duplicate emails.
 
 ---
 
@@ -306,7 +304,7 @@ This project is set up to be deployed on two separate platforms for best perform
    - **Root Directory**: `server`
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
-3. In **Environment Variables**, add all environment variables from `server/.env` (e.g. `MONGO_URI`, `JWT_SECRET`, `RAZORPAY_KEY_ID`, etc.).
+3. In **Environment Variables**, add all environment variables from `server/.env` (e.g. `MONGO_URI`, `JWT_SECRET`, `RAZORPAY_KEY_ID`, `BREVO_API_KEY`, etc.).
 4. Leave `FRONTEND_URL` blank for now. Click **Create Web Service** and copy the live URL (e.g. `https://pizzabyte-backend.onrender.com`).
 
 ### 2. Deploy Frontend to Vercel
